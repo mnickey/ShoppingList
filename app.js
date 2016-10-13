@@ -20,9 +20,14 @@ var renderList = function(state, element) {
     element.html(itemsHTML);
 };
 
+var checked = function(element) {
+    return checked.addClass('shopping-item__checked');
+};
+
 // Event listeners
 $('.shopping-list-add').submit(function(event) {
     event.preventDefault();
     addItem(state, $('.shopping-list-add-input').val());
+    checkItem($('span').currentTarget);
     renderList(state, $('.shopping-list'));
 });
