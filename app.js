@@ -28,14 +28,13 @@ function renderList(state, element) {
 }
 
 function checkItem(element) {
-    return $(this).closest('li').toggleClass(element);
-    // return ($(element).find('span').addClass('shopping-item__checked'));
+    return $(element).toggleClass('shopping-item__checked');
 }
 
 // Event listeners
 $('#js-shopping-list-form').submit(function (event) {
     event.preventDefault();
     addItem(state, $('#shopping-list-entry').val());
-    checkItem($('.shopping-list').text());
+    checkItem($('.shopping-list'));
     renderList(state, $('.shopping-list'));
 });
