@@ -9,32 +9,35 @@ var state = {
 
 // state modification functions
 function addItem(state, item) {
-    state.items.push(item);
+    state.items.push({
+        name: item,
+        checked: "False"
+    });
     console.log(state.items);
 }
 
 // Render functions
 function renderList(state, element) {
     var itemsHTML = state.items.map(function (item) {
-        var addedItem = '<li>' + '<span class="shopping-item">' + item + '</span>';
+        var addedItem = '<li>' + '<span class="shopping-item">' + item.name + '</span>';
         addedItem += '<div class="shopping-item-controls">' + '<button class="shopping-item-toggle">' +
             '<span class="button-label">check</span>' + '</button>' +
             '<button class="shopping-item-delete">' + '<span class="button-label">delete</span>' +
-                '</button>' + '</div>' + '</li>';
+            '</button>' + '</div>' + '</li>';
         // console.log(addedItem);
         return addedItem;
     });
     element.html(itemsHTML);
 }
 
-function checkItem(element) {
-    return $(element).toggleClass('shopping-item__checked');
-}
+// function checkItem(element) {
+//     return $(element).toggleClass('shopping-item__checked');
+// }
 
 // Event listeners
 $('#js-shopping-list-form').submit(function (event) {
     event.preventDefault();
     addItem(state, $('#shopping-list-entry').val());
-    checkItem($('.shopping-list'));
+    // checkItem($('.shopping-list'));
     renderList(state, $('.shopping-list'));
 });
