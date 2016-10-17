@@ -34,7 +34,7 @@ function renderList(state, element) {
 
 function checkItem(target, event) {
     // toggles the class shopping-item__checked when button inside the parent <li> is clicked
-    console.log(event.id);
+    console.log(event.currentTarget.id);
 }
 
 // Event listeners
