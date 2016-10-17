@@ -9,9 +9,11 @@ var state = {
 
 // state modification functions
 function addItem(state, item) {
+    var id = state.items.length;
     state.items.push({
         name: item,
-        checked: "False"
+        checked: "False",
+        id: id
     });
     console.log(state.items);
 }
@@ -30,14 +32,15 @@ function renderList(state, element) {
     element.html(itemsHTML);
 }
 
-// function checkItem(element) {
-//     return $(element).toggleClass('shopping-item__checked');
-// }
+function checkItem(target, event) {
+    // toggles the class shopping-item__checked when button inside the parent <li> is clicked
+    console.log(event.id);
+}
 
 // Event listeners
 $('#js-shopping-list-form').submit(function (event) {
     event.preventDefault();
     addItem(state, $('#shopping-list-entry').val());
-    // checkItem($('.shopping-list'));
+    checkItem($('.shopping-item').on('click'), event);
     renderList(state, $('.shopping-list'));
 });
