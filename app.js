@@ -17,6 +17,11 @@ function addItem(state, item) {
     });
 }
 
+function checkItem(element) {
+    // toggles the class shopping-item__checked when button inside the parent <li> is clicked
+    element.closest('li').toggleClass('shopping-item__checked');
+}
+
 // Render functions
 function renderList(state, element) {
     var itemsHTML = state.items.map(function (item) {
@@ -30,19 +35,17 @@ function renderList(state, element) {
     element.html(itemsHTML);
 }
 
-function checkItem(element) {
-    // toggles the class shopping-item__checked when button inside the parent <li> is clicked
-    element.parent('li').toggleClass('shopping-item__checked');
-    console.log(element);
-}
-
 // Event listeners
 $(document).ready(function () {
     console.log("ready!");
+    // event listener for adding an item
     $('#js-shopping-list-form').submit(function (event) {
         event.preventDefault();
         addItem(state, $('#shopping-list-entry').val());
         renderList(state, $('.shopping-list'));
     });
-    $('ul.shopping-list > li').click(checkItem($(this).closest('shopping-item')));
+    // Checking an item off event listener
+    $('.shopping-list').on('click', '.shopping-item-toggle', (function (event) {
+        checkItem($(this));
+    }));
 });
