@@ -32,8 +32,9 @@ function renderList(state, element) {
     element.html(itemsHTML);
 }
 
-function checkItem(target, event) {
+function checkItem(target) {
     // toggles the class shopping-item__checked when button inside the parent <li> is clicked
+    target.closest('li').addClass(".shopping-item__checked");
     console.log(event.currentTarget.id);
 }
 
@@ -41,6 +42,6 @@ function checkItem(target, event) {
 $('#js-shopping-list-form').submit(function (event) {
     event.preventDefault();
     addItem(state, $('#shopping-list-entry').val());
-    checkItem($('.shopping-item').on('click'), event);
+    $('.shopping-list > li').click(checkItem($(this).closest('li')));
     renderList(state, $('.shopping-list'));
 });
