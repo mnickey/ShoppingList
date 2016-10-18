@@ -15,7 +15,6 @@ function addItem(state, item) {
         checked: "False",
         id: id
     });
-    console.log(state.items);
 }
 
 // Render functions
@@ -26,22 +25,24 @@ function renderList(state, element) {
             '<span class="button-label">check</span>' + '</button>' +
             '<button class="shopping-item-delete">' + '<span class="button-label">delete</span>' +
             '</button>' + '</div>' + '</li>';
-        // console.log(addedItem);
         return addedItem;
     });
     element.html(itemsHTML);
 }
 
-function checkItem(target) {
+function checkItem(element) {
     // toggles the class shopping-item__checked when button inside the parent <li> is clicked
-    target.closest('li').addClass(".shopping-item__checked");
-    console.log(event.currentTarget.id);
+    element.parent('li').toggleClass('.shopping-item__checked');
+    console.log(element);
 }
 
 // Event listeners
-$('#js-shopping-list-form').submit(function (event) {
-    event.preventDefault();
-    addItem(state, $('#shopping-list-entry').val());
-    $('.shopping-list > li').click(checkItem($(this).closest('li')));
-    renderList(state, $('.shopping-list'));
+$(document).ready(function () {
+    console.log("ready!");
+    $('#js-shopping-list-form').submit(function (event) {
+        event.preventDefault();
+        addItem(state, $('#shopping-list-entry').val());
+        renderList(state, $('.shopping-list'));
+    });
+    $('ul.shopping-list > li').click(checkItem($(this).closest('shopping-item')));
 });
