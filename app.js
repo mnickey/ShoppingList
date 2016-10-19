@@ -15,7 +15,7 @@ function addItem(state, item) {
 // Render functions
 var renderList = function (state, element) {
     var itemName = $('#shopping-list-entry').val();
-    var newItem = '<li><span class="shopping-item">' + itemName +'</span>' +
+    var newItem = '<li><span class="shopping-item">' + itemName + '</span>' +
         '<div class="shopping-item-controls"><button class="shopping-item-toggle">' +
         '<span class="button-label">';
     newItem += 'check</span></button> <button class = "shopping-item-delete" > <span class = "button-label" > ' +
@@ -31,7 +31,7 @@ var deleteItem = function (state, item) {
 // Event listeners
 $(document).ready(function () {
 
-// event listener for adding an item
+    // event listener for adding an item
     $('#js-shopping-list-form').submit(function (event) {
         event.preventDefault();
         addItem(state, $('#shopping-list-entry').val());
@@ -45,7 +45,7 @@ $(document).ready(function () {
         $(this).closest('li').remove();
     });
 
-// Checking an item off event listener
+    // Checking an item off event listener
     $('.shopping-list').on('click', '.shopping-item-toggle', (function (event) {
         event.preventDefault();
         $(this).closest('li').find('.shopping-item').toggleClass('shopping-item__checked');
