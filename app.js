@@ -9,12 +9,7 @@ var state = {
 
 // state modification functions
 function addItem(state, item) {
-    var id = state.items.length;
-    state.items.push({
-        name: item,
-        checked: "False",
-        id: id
-    });
+    state.items.push(item);
 }
 
 function checkItem(element) {
@@ -24,30 +19,42 @@ function checkItem(element) {
 }
 
 // Render functions
-function renderList(state, element) {
-    var itemsHTML = state.items.map(function (item) {
-        var addedItem = '<li>' + '<span class="shopping-item">' + item.name + '</span>';
-        addedItem += '<div class="shopping-item-controls">' + '<button class="shopping-item-toggle">' +
-            '<span class="button-label">check</span>' + '</button>' +
-            '<button class="shopping-item-delete">' + '<span class="button-label">delete</span>' +
-            '</button>' + '</div>' + '</li>';
-        return addedItem;
-    });
-    element.html(itemsHTML);
-}
+var renderList = function (state, element) {
+    var itemName = $('#shopping-list-entry').val();
+    var newItem = '<li><span class="shopping-item">' + itemName +'</span>' +
+        '<div class="shopping-item-controls"><button class="shopping-item-toggle">' +
+        '<span class="button-label">';
+    newItem += 'check</span></button> <button class = "shopping-item-delete" > <span class = "button-label" > ' +
+        'delete </span > </button > </div > </li > ';
+    element.append(newItem);
+};
+
+var deleteItem = function (state, item) {
+    var itemIndex = state.items.indexOf(item);
+    state.items.splice(itemIndex, 1);
+};
 
 // Event listeners
 $(document).ready(function () {
-    console.log("ready!");
-    // event listener for adding an item
+
+// event listener for adding an item
     $('#js-shopping-list-form').submit(function (event) {
         event.preventDefault();
         addItem(state, $('#shopping-list-entry').val());
         renderList(state, $('.shopping-list'));
     });
-    // Checking an item off event listener
+
+    // deleting an item event listener
+    $('.shopping-list').on('click', '.shopping-item-delete', function (event) {
+        event.preventDefault();
+        deleteItem(state, $(this).closest('li').find('.shopping-item').text());
+        $(this).closest('li').remove();
+    });
+
+// Checking an item off event listener
     $('.shopping-list').on('click', '.shopping-item-toggle', (function (event) {
         event.preventDefault();
-        checkItem($(this));
+        $(this).closest('li').find('.shopping-item').toggleClass('shopping-item__checked');
     }));
+
 });
