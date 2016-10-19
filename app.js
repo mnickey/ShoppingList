@@ -47,6 +47,7 @@ $(document).ready(function () {
     });
     // Checking an item off event listener
     $('.shopping-list').on('click', '.shopping-item-toggle', (function (event) {
+        event.preventDefault();
         checkItem($(this));
     }));
 });
