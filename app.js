@@ -12,12 +12,6 @@ function addItem(state, item) {
     state.items.push(item);
 }
 
-function checkItem(element) {
-    // toggles the class shopping-item__checked when button inside the parent <li> is clicked
-    element.closest('li').toggleClass('shopping-item__checked');
-    console.log(element.find('shopping-item').text());
-}
-
 // Render functions
 var renderList = function (state, element) {
     var itemName = $('#shopping-list-entry').val();
